@@ -2,72 +2,81 @@
 #include <conio.h>
 #include <iomanip> //setw()
 using namespace std;
+ 
 struct node
 {
-  int data;
-  node *next; //untuk menghubungkan dengan node lain, tipe data dibuat sama seperti aturan pengunaan pointer.
+      int data;
+      node* next; // untuk menghubungkan dengan node lain, tipe data dibuat sama seperi aturan penggunaan pointer.
 };
+ 
 node* head;
 node* tail;
 node* curr;
 node* entry;
 node* del;
+ 
 void inisialisasi()
 {
-head = NULL; //menjadikan head ke NULL
-tail = NULL; //menjadikan tail ke NULL
+      head = NULL;//menjadikan head ke NULL
+      tail = NULL;//menjadikan head ke NULL
 }
+ 
 void input(int dt)//fungsi untuk menginput data
 {
-  entry = (node* )malloc(sizeof(node)); //alokasi memori
-  entry ->data = dt;
-  entry ->data = NULL;
-  if(head==NULL)
-  {
-    head = entry;
-    tail = head;
-  }
-  else
-  {
-    tail-> next = entry;
-    tail = entry;
-  }
-}
-void hapus() //fungsi untuk menghapus
-{
-  int simpan;
-  if(head==NULL)
-  {
-    cout<< "\nlinked list kosong, penghapusan tidak bisa dilakukan"<<endl;
-  }
-  else
-  {
-    simpan = head -> data;
-    //hapus depan
-    del = head;
-    head= head -> next;
-    delete del;
-    cout<< " \ndata yang dihapus adalah "<<simpan<<endl;
-    }
-}
-void cetak () //funsi untuk mencetak
-{
-  curr = head;
-  if(head == NULL)
-    cout<<"\ntidak ada data dalam linked list "<<endl;
-    else
-    {
-    cout << "\nData yang ada dalam linked list adalah "<<endl;
-    cout<<setw(6);
-      while(curr!=NULL)
+      entry = (node* )malloc(sizeof(node)); //alokasi memori
+      entry->data = dt;
+      entry->next = NULL;
+      if(head==NULL)
       {
-        cout<<curr -> data<<"-";
-        curr = curr ->next;
+            head = entry;
+            tail = head;
       }
-cout<<"NULL";
-  cout<<endl;
-  }
+      else
+      {
+            tail->next = entry;
+            tail = entry;
+      }
 }
+ 
+void hapus()//fungsi untuk menghapus
+{
+      int simpan;
+      if(head==NULL)
+      {
+            cout<<"\nlinked list kosong, penghapusan tidak bisa dilakukan"<<endl;
+      }
+      else
+      {
+            simpan  = head ->data;
+            //hapus depan
+            del = head;
+            head = head->next;
+            delete del;
+           
+            cout<<"\ndata yang dihapus adalah "<<simpan<<endl;
+      }
+ 
+}
+ 
+void cetak()//fungsi untuk mencetak
+{
+      curr = head;
+      if(head == NULL)
+            cout<<"\ntidak ada data dalam linked list"<<endl;
+      else
+      {
+            cout<<"\nData yang ada dalam linked list adalah"<<endl;
+            cout<<setw(6);
+            while(curr!=NULL)
+            {
+                  cout<<curr->data<<"->";
+                  curr = curr->next;
+            }
+cout<<"NULL";
+            cout<<endl;
+      }
+}
+ 
 void menu()
 {
       char pilih, ulang;
@@ -119,6 +128,3 @@ int main()//fungsi utama program
  
       return EXIT_SUCCESS;
 }
-
-
-  
