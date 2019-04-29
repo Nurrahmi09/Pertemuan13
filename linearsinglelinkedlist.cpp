@@ -1,130 +1,100 @@
-#include <iostream>
-#include <conio.h>
-#include <iomanip> //setw()
+#include<bits/stdc++.h>
 using namespace std;
- 
-struct node
+struct Node   //membuat tipe data struct dengan beberapa tipe daya yg berbeda
 {
-      int data;
-      node* next; // untuk menghubungkan dengan node lain, tipe data dibuat sama seperi aturan penggunaan pointer.
+    int data;
+    struct Node *next;    //nama struct Node*next
 };
- 
-node* head;
-node* tail;
-node* curr;
-node* entry;
-node* del;
- 
-void inisialisasi()
+struct Node *addToEmpty(struct Node *last, int data)
 {
-      head = NULL;//menjadikan head ke NULL
-      tail = NULL;//menjadikan head ke NULL
+    // fungsi yg hanya sebagai empty list
+    if (last != NULL)
+      return last;
+    // membuat node
+    struct Node *temp =
+           (struct Node*)malloc(sizeof(struct Node));
+    // memasukkan data
+    temp -> data = data;
+    last = temp;
+    // membuat hubungan
+    last -> next = last;
+    return last;
 }
- 
-void input(int dt)//fungsi untuk menginput data
+struct Node *addBegin(struct Node *last, int data)
 {
-      entry = (node* )malloc(sizeof(node)); //alokasi memori
-      entry->data = dt;
-      entry->next = NULL;
-      if(head==NULL)
-      {
-            head = entry;
-            tail = head;
-      }
-      else
-      {
-            tail->next = entry;
-            tail = entry;
-      }
+    if (last == NULL)
+        return addToEmpty(last, data);
+    struct Node *temp =
+            (struct Node *)malloc(sizeof(struct Node));
+    temp -> data = data;
+    temp -> next = last -> next;
+    last -> next = temp;
+    return last;
 }
- 
-void hapus()//fungsi untuk menghapus
+struct Node *addEnd(struct Node *last, int data)
 {
-      int simpan;
-      if(head==NULL)
-      {
-            cout<<"\nlinked list kosong, penghapusan tidak bisa dilakukan"<<endl;
-      }
-      else
-      {
-            simpan  = head ->data;
-            //hapus depan
-            del = head;
-            head = head->next;
-            delete del;
-           
-            cout<<"\ndata yang dihapus adalah "<<simpan<<endl;
-      }
- 
+    if (last == NULL)
+        return addToEmpty(last, data);
+    struct Node *temp =
+        (struct Node *)malloc(sizeof(struct Node));
+    temp -> data = data;
+    temp -> next = last -> next;
+    last -> next = temp;
+    last = temp;
+    return last;
 }
- 
-void cetak()//fungsi untuk mencetak
+struct Node *addAfter(struct Node *last, int data, int item)
 {
-      curr = head;
-      if(head == NULL)
-            cout<<"\ntidak ada data dalam linked list"<<endl;
-      else
-      {
-            cout<<"\nData yang ada dalam linked list adalah"<<endl;
-            cout<<setw(6);
-            while(curr!=NULL)
-            {
-                  cout<<curr->data<<"->";
-                  curr = curr->next;
-            }
-cout<<"NULL";
-            cout<<endl;
-      }
+    if (last == NULL)
+        return NULL;
+    struct Node *temp, *p;
+    p = last -> next;
+    do
+    {
+        if (p ->data == item)
+        {
+            temp = (struct Node *)malloc(sizeof(struct Node));
+            temp -> data = data;
+            temp -> next = p -> next;
+            p -> next = temp;
+            if (p == last)
+                last = temp;
+            return last;
+        }
+        p = p -> next;
+    }  while(p != last -> next);
+    cout << item << " not present in the list." << endl;
+    return last;
 }
- 
-void menu()
+void traverse(struct Node *last)
 {
-      char pilih, ulang;
-      int data;
- 
-      do
-      {
-      system("cls");
-      cout<<"SINGLE LINKED LIST NON CIRCULAR"<<endl;
-      cout<<"-------------------------------"<<endl;
-      cout<<"Menu : "<<endl;
-      cout<<"1. Input data"<<endl;
-      cout<<"2. Hapus data"<<endl;
-      cout<<"3. Cetak Data"<<endl;
-      cout<<"4. Exit"<<endl;
-      cout<<"Masukkan pilihan Anda : ";
-      cin>>pilih;
- 
-      switch(pilih)
-      {
-      case '1' :
-            cout<<"\nMasukkan data : ";
-            cin>>data;
-            input(data);
-            break;
-      case '2' :
-            hapus();
-            break;
-      case '3' :
-            cetak();
-            break;
-      case '4' :
-            exit(0);
-            break;
-      default :
-            cout<<"\nPilih ulang"<<endl;
-      }
-      cout<<"\nKembali ke menu?(y/n)";
-      cin>>ulang;
-      }while(ulang=='y' || ulang=='Y');
+    struct Node *p;
+    // If list is empty, return.
+    if (last == NULL)
+    {
+        cout << "List is empty." << endl;
+        return;
+    }
+    // Pointing to first Node of the list.
+    p = last -> next;
+    // Traversing the list.
+    do
+    {
+        cout << p -> data << " ";
+        p = p -> next;
+    }
+    while(p != last->next);
 }
- 
- 
-int main()//fungsi utama program
+// Driven Program
+int main()
 {
- 
-      inisialisasi();
-      menu();
- 
-      return EXIT_SUCCESS;
+    struct Node *last = NULL;
+    last = addToEmpty(last, 6);
+    last = addBegin(last, 4);
+    last = addBegin(last, 2);
+    last = addEnd(last, 8);
+    last = addEnd(last, 12);
+    last = addAfter(last, 10, 8);
+    traverse(last);
+    return 0;
 }
