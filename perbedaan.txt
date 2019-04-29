@@ -1,0 +1,4 @@
+1. Singly Linked List : Setiap node pada linked list mempunyai field yang berisi pointer ke node berikutnya dan juga memiliki field yang berisi data. Akhir linked list ditandai dengan node terakhir akan menunjuk ke null yang akan digunakan sebagai kondisi berhenti saat pembacaan linked list.
+2. Double Linked List : Linked list dengan menggunakan pointer, dimana setiap node memiliki 3 field, yaitu: 1 field pointer yang menunjuk ke pointer berikutnya, 1 field pointer yang menunjuk ke pointer sebelumnya dan field yang berisi data dari node tersebut. Pointer next dan prev-nya menunjuk ke null.
+3. Single Circular Linked List :Single Linked List yang pointer next-nya menunjuk ke dirinya sendiri, jika terdiri dari beberapa node maka pointer terakhirnya akan menunjuk ke pointer terdepannya.
+4. Double Circular Linked List :Double Linked List yang pointer next dan prev-nya menunjuk ke dirinya sendiri secara circular.
